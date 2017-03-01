@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/akanekwon/Chat/issues"
   },
-  "homepage": "https://github.com/akanekwon/Chat#readme"
+  "homepage": "https://github.com/akanekwon/Chat#readme",
+  "dependencies": {
+    "socket.io": "^1.7.3"
+  }
 }
