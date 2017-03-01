@@ -2,8 +2,82 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chat App</title>
+<style>
+	body {
+		font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', 'メイリオ', meiryo, sans-serif;
+		font-size: 1.2em;
+	}
+	
+	input {
+		width: 200px;
+	}
+	
+	table tr td {
+		margin-bottom: 10px;
+	}
+	
+	ul li {
+		list-style: square;
+	}
+
+</style>
+<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
+<h1>Chat Room</h1>
+<table>
+	<tr>
+		<td>名　前：</td>
+		<td><input id="myName" type="text" placeholder=""></td>
+		<td><button id="login" onclick="login()">ログイン</button></td>
+	</tr>
+	<tr>
+		<td>メッセージ：</td>
+		<td><input id="input" type="text" placeholder="ここにメッセージを入力"></td>
+		<td><button id="submit" onclick="publishMessage();">送信</button></td>
+	</tr>
+</table>
+<div class="message">
+<ul id="messages">
+</ul>
+</div>
+<!--<script src="./chat.js"></script>-->
+<script>
+	var socket = io.connect();
+
+	var msgs = document.getElementById("messages");
+	var submit = document.getElementById("submit");
+	var myName = document.getElementById("myName");
+	var name = myName.value + "さん";
+
+	socket.on('connected', function(name) {});
+	socket.on('publish', function(data) {
+		addMessage(data.value);
+	});
+	socket.on('disconnect', function() {});
+
+	function publishMessage() {
+		var input = document.getElementById("input");
+		var msg = "[" + myName.value + "] " + input.value;
+		socket.emit('publish', {
+			value: msg
+		});
+		input.value = '';
+	}
+
+	function addMessage(data) {
+		var limsg = new Date().toLocaleTimeString() + " " + data;
+		msgs.insertAdjacentHTML("beforeend", "<li>" + limsg + "</li>");
+	}
+
+	function login() {
+		name = myName.value + "さん"
+		addMessage("あなたは、" + name + " として入室しました。");
+		socket.emit('connected', name);
+	}
+
+</script>
 </body>
 </html>
