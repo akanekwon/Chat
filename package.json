@@ -1,0 +1,19 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "chat app @spring 2017",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akanekwon/Chat.git"
+  },
+  "author": "akanekwon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akanekwon/Chat/issues"
+  },
+  "homepage": "https://github.com/akanekwon/Chat#readme"
+}
